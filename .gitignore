@@ -1,0 +1,19 @@
+# Ignorar arquivos de ambiente (ex: .env, variáveis sensíveis)
+.env
+*.env
+venv/
+
+# Ignorar pastas de dependências (ex: node_modules/)
+node_modules/
+
+# Ignorar arquivos de IDE (ex: VSCode, PyCharm)
+.vscode/
+.idea/
+
+# Ignorar arquivos de sistema (ex: Thumbs.db no Windows)
+Thumbs.db
+.DS_Store
+
+# Ignorar arquivos de log ou temporários
+*.log
+*.tmp
