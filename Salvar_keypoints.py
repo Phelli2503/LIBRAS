@@ -45,8 +45,14 @@ Uma diferença fundamental entre a detecção de ações e outras tarefasa de vi
 DATA_PATH = os.path.join('MP_Data')    
 
 # Definir frases (ações) para salvar
-# Ações que tentamos detectar
-actions = np.array([],[],[])
+
+# ================================================================================================================
+
+# Ações que tentamos detectar / capturar
+actions = np.array(['olá', 'eu te amo', 'obrigado'])
+
+# ================================================================================================================
+
 # 30 vídeos de dados
 no_sequences = 30
 # Os vídeos terão 30 quadros de duração
@@ -239,6 +245,13 @@ with mp_holistic.Holistic(
                     # Pausa a execução por 2000ms (2 segundos) para dar tempo do usuário se preparar
                     cv2.waitKey(2000)
 
+                    ''' 
+                    Encutar Pausas
+                    Para encurtar o intervalo entre sequencias coletadas
+                    altere o valor em cv2.waitTime() para um valor menor.
+                    Para aumentar o tempo, aumente o valor.
+                    '''
+
                 # Para todos os outros frames (não é o primeiro frame)
                 else:
                     # Mostra apenas a informação da ação e número do vídeo (sem o texto "Iniciando coleta")
@@ -253,12 +266,18 @@ with mp_holistic.Holistic(
                         cv2.LINE_AA
                     )
                 
+                # Exportando Keypoints
+                keypoints = extract_keypoints(results)
+                npy_path = os.path.join(DATA_PATH, action, str(sequence), str(frame_num))
+                np.save(npy_path, keypoints)
+
+                
                 # Mostra o resultado
                 cv2.imshow('Leitor de Libras', image)
                 
-        # Finaliza com 'q'
-        if cv2.waitKey(10) & 0xFF == ord('q'):
-            break
+                # Finaliza com 'q'
+                if cv2.waitKey(10) & 0xFF == ord('q'):
+                    break
 
         # 3. Extrair valores keypoint
         # Função para extrair
