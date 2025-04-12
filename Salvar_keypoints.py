@@ -49,7 +49,7 @@ DATA_PATH = os.path.join('MP_Data')
 # ================================================================================================================
 
 # Ações que tentamos detectar / capturar
-actions = np.array(['olá', 'eu te amo', 'obrigado'])
+actions = np.array(['olá', 'obrigado', 'eu te amo'])
 
 # ================================================================================================================
 
@@ -268,6 +268,11 @@ with mp_holistic.Holistic(
                 
                 # Exportando Keypoints
                 keypoints = extract_keypoints(results)
+                
+                # Verificar formato dos dados
+                print(f"Tamanho do array de keypoints: {keypoints.shape}")
+
+                # DESCOMENTAR
                 npy_path = os.path.join(DATA_PATH, action, str(sequence), str(frame_num))
                 np.save(npy_path, keypoints)
 
